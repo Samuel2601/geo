@@ -1,0 +1,10 @@
+/* Añade reglas de estilo para el patrón de líneas */
+.leaflet-pane {
+    .leaflet-overlay-pane path.pattern {
+      stroke: white; /* Color de las líneas */
+      stroke-width: 3; /* Ancho de las líneas */
+      stroke-dasharray: 10, 10; /* Patrón de las líneas (alternancia de líneas y espacios) */
+      fill: none; /* No rellenar el interior del polígono */
+    }
+  }
+  
