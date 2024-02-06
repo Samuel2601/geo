@@ -6,6 +6,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class MainService {
+	private mostrarMenuMobile: boolean = false;
+	toggleMenuMobile() {
+		this.mostrarMenuMobile = !this.mostrarMenuMobile;
+	}
+
+	isMobileMenuOpen() {
+		return this.mostrarMenuMobile;
+	}
   public url;
 
   constructor(private _http: HttpClient) { 

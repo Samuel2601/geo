@@ -26,14 +26,24 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              {
+                "glob": "**/*",
+                "input": "src/assets",
+                "output": "assets"
+              },
+              {
+                "glob": "**/*.svg",
+                "input": "node_modules/ionicons/dist/ionicons/svg",
+                "output": "./svg"
+              }
             ],
             "styles": [
-              "node_modules/leaflet/dist/leaflet.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/theme/variables.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -94,7 +104,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/theme/variables.scss",
+              "src/styles.scss"              
             ],
             "scripts": []
           }

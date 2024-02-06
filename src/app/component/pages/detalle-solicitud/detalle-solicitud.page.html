@@ -1,0 +1,84 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab2"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Información de solicitud</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Información de solicitud</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div *ngIf="solicitud">
+    <ion-list>
+      <ion-item-divider>
+        <ion-label color="primary">
+          Creación
+        </ion-label>
+      </ion-item-divider>
+      <ion-item lines="none">Código: {{ solicitud.id }}</ion-item>
+      <ion-item lines="none">Fecha: {{ solicitud.creacion | date: 'dd-MM-yyyy' }}</ion-item>
+      <ion-item lines="none">Hora: {{ solicitud.creacion | date:'mediumTime' }}</ion-item>
+      <ion-item-divider>
+        <ion-label color="primary">
+          Tipo
+        </ion-label>
+      </ion-item-divider>
+      <ion-item lines="none">{{ solicitud.tipo_des | titlecase }}</ion-item>
+      <ion-item-divider>
+        <ion-label color="primary">
+          Estado
+        </ion-label>
+      </ion-item-divider>
+      <ion-item lines="none">{{ solicitud.estado_des | titlecase }}</ion-item>
+      <ion-item-divider>
+        <ion-label color="primary">
+          Categoría
+        </ion-label>
+      </ion-item-divider>
+      <ion-item lines="none">{{ solicitud.categoria_des }}</ion-item>
+      <ion-item-divider>
+        <ion-label color="primary">
+          Subcategoría
+        </ion-label>
+      </ion-item-divider>
+      <ion-item lines="none">{{ solicitud.subcategoria_des }}</ion-item>
+      <ion-item-divider>
+        <ion-label color="primary">
+          Dirección
+        </ion-label>
+      </ion-item-divider>
+      <ion-item lines="none">
+        <ion-textarea [autoGrow]="true" [(ngModel)]="solicitud.direccion">
+        </ion-textarea>
+      </ion-item>
+      <ion-item-divider>
+        <ion-label color="primary">
+          Descripción
+        </ion-label>
+      </ion-item-divider>
+      <ion-item lines="none">
+        <ion-textarea [autoGrow]="true" [(ngModel)]="solicitud.descripcion">
+        </ion-textarea>
+      </ion-item>
+      <ion-item-divider>
+        <ion-label color="primary">
+          Observación
+        </ion-label>
+      </ion-item-divider>
+      <ion-item lines="none">
+        <div *ngIf="!solicitud.observacion">
+          No disponible
+        </div>
+        <ion-textarea *ngIf="solicitud.observacion" [autoGrow]="true" [(ngModel)]="solicitud.observacion">
+        </ion-textarea>
+      </ion-item>
+    </ion-list>
+  </div>
+
+</ion-content>

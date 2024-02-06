@@ -9,7 +9,7 @@
             <span class="navbar-toggler-icon icon-bar"></span>
             <span class="navbar-toggler-icon icon-bar"></span>
         </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navigation">
+        <div class="collapse navbar-collapse justify-content-end" id="navigation" >
             <form class="navbar-form">
                 <div class="input-group no-border">
                     <input type="text" value="" class="form-control" placeholder="Search...">
@@ -45,7 +45,7 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0)">
+                    <a class="nav-link btn btn-primary" href="javascript:void(0)" (click)="abrirModal()">
                         <i class="material-icons">person</i>
                         <p>
                             <span class="d-lg-none d-md-block">Account</span>
@@ -56,3 +56,9 @@
         </div>
     </div>
 </nav>
+
+  
+  <!-- Modal -->
+  <div class="modal modal-angular fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <app-inicio></app-inicio>
+  </div>

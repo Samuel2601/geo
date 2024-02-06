@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Subcategoría</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Subcategoría</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div *ngFor="let i of [1,2,3];">
+    <ion-card *ngIf="subcats.length==0">
+      <ion-grid>
+        <ion-row class="ion-row-card">
+          <ion-col size="4">
+            <div>
+              <ion-thumbnail slot="start">
+                <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+              </ion-thumbnail>
+            </div>
+          </ion-col>
+          <ion-col size="8">
+            <div class="card-text">
+              <ion-skeleton-text [animated]="true" style="width: 60%"></ion-skeleton-text>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+  </div>
+
+  <ion-card *ngFor="let sub of subcats;" (click)="crearSolicitud(sub.id)" class="animate__animated animate__fadeInDown">
+    <ion-grid>
+      <ion-row class="ion-row-card">
+        <ion-col size="4">
+          <img alt="Imágen de subcategoría" src="assets/subcategorias/{{sub.id}}.png" />
+        </ion-col>
+        <ion-col size="8">
+          <div class="card-text">
+            <p>{{sub.nombre}}</p>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+  
+</ion-content>

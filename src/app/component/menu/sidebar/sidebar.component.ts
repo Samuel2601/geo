@@ -1,4 +1,6 @@
 import { Component, OnInit} from '@angular/core';
+import { Platform } from '@ionic/angular';
+import { MainService } from 'src/app/service/main.service';
 declare const $: any;
 declare interface RouteInfo {
     path: string;
@@ -24,12 +26,16 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
   menuItems: any[]=[];
 
-  constructor() { }
+  constructor(private platform: Platform,private mainService:MainService) { }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
   }
-  isMobileMenu(){
-    return false;
+  isMobileMenu():boolean{
+    if (this.platform.is('desktop')) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }

@@ -1,0 +1,83 @@
+<ng-container *ngIf="!mostrarEnModal; else modalContent">
+  <ion-content>
+    <ion-row class="login animate__animated animate__fadeInDown">
+      <ion-col size="12" size-sm="10" offset-sm="1" size-md="8" offset-md="2" size-lg="6" offset-lg="3" size-xl="4" offset-xl="4">
+        <ion-card>
+          <ion-card-header class="login-banner">
+          </ion-card-header>
+  
+          <ion-card-content>
+            <form [formGroup]="loginForm" (ngSubmit)="postLogin()">
+              <ion-item lines="none">
+                <ion-icon slot="start" name="mail-outline"></ion-icon>
+                <ion-input formControlName="correo" placeholder="Correo electrónico"
+                  errorText="Correo inválido (máx. 50 caracteres)"></ion-input>
+              </ion-item>
+  
+              <ion-item lines="none">
+                <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+                <show-hide-password>
+                  <ion-input formControlName="pass" type="password" placeholder="Contraseña"
+                    errorText="Contraseña inválida (8-30 caracteres)"></ion-input>
+                </show-hide-password>
+              </ion-item>
+  
+              <ion-button [disabled]="!this.loginForm.valid" shape="round" ion-button block type="submit"
+                expand="block"><ion-icon slot="end" color="light" name="log-in-outline"></ion-icon>Ingresar</ion-button>
+              <ion-button fill="outline" shape="round" expand="block" routerLink="/registro"
+                routerDirection="forward"><ion-icon slot="end" name="person-add-outline"></ion-icon>Registrarme
+              </ion-button>
+            </form>
+  
+            <div class="ion-text-center ion-padding">
+              <a (click)="resetPassword()"><u>Restaurar contraseña</u></a><br>
+            </div>
+  
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-content>
+</ng-container>
+
+  <ng-template #modalContent>
+    <div class="content">
+      <ion-row class="animate__animated animate__fadeInDown ion-align-items-center ion-justify-content-center">
+        <ion-col>
+          <ion-card>
+            <ion-card-header class="login-banner">
+            </ion-card-header>
+    
+            <ion-card-content>
+              <form [formGroup]="loginForm" (ngSubmit)="postLogin()">
+                <ion-item lines="none">
+                  <ion-icon slot="start" name="mail-outline"></ion-icon>
+                  <ion-input formControlName="correo" placeholder="Correo electrónico"
+                    errorText="Correo inválido (máx. 50 caracteres)"></ion-input>
+                </ion-item>
+    
+                <ion-item lines="none">
+                  <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+                  <show-hide-password>
+                    <ion-input formControlName="pass" type="password" placeholder="Contraseña"
+                      errorText="Contraseña inválida (8-30 caracteres)"></ion-input>
+                  </show-hide-password>
+                </ion-item>
+    
+                <ion-button [disabled]="!this.loginForm.valid" shape="round" ion-button block type="submit"
+                  expand="block"><ion-icon slot="end" color="light" name="log-in-outline"></ion-icon>Ingresar</ion-button>
+                <ion-button fill="outline" shape="round" expand="block" (click)="abrirregistro()"
+                  routerDirection="forward"><ion-icon slot="end" name="person-add-outline"></ion-icon>Registrarme
+                </ion-button>
+              </form>
+    
+              <div class="ion-text-center ion-padding">
+                <a (click)="resetPassword()"><u>Restaurar contraseña</u></a><br>
+              </div>
+    
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </div>
+  </ng-template>

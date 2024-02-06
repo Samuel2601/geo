@@ -1,6 +1,5 @@
 import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { LatLng, geoJSON, Map, tileLayer, control, layerGroup } from 'leaflet';
-import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { Location, LocationStrategy, PathLocationStrategy, PopStateEvent } from '@angular/common';
 
 @Component({
@@ -12,7 +11,7 @@ export class MapComponent implements AfterViewInit, OnInit{
   private mapInitialized = false;
   ngOnInit(): void {
     console.log('Contenedor presente:', document.getElementById('mapid'));
-    this.ngAfterViewInit();
+    this.inicio();
   }
 
   geoJsonData: GeoJSON.Feature = {
@@ -38,13 +37,15 @@ export class MapComponent implements AfterViewInit, OnInit{
   zonaLayer: any;
   map: Map | undefined;
 
-  constructor(public location: Location, private router: Router) {
+  constructor(public location: Location) {
     // No inicialices el mapa aquí, hazlo en ngAfterViewInit
   }
+  ngAfterViewInit(){
 
-  ngAfterViewInit(): void {
+  }
+  inicio(): void {
     // Crea el mapa y establece la vista
-    this.map = new Map('mapid').setView([0.977035, -79.655415], 13);
+    this.map = new Map('mapid').setView([0.977035, -79.655415], 20);
 
     // Capas base
     const streetLayer = tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
