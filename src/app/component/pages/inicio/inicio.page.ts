@@ -87,6 +87,7 @@ export class InicioPage implements OnInit {
       };
       this.apiService.SecurePostLogin(user).subscribe({
         next: (res: any) => {
+          console.log(res);
           const { message, data } = res;
           this.messagesService.dismissLoading();
           this.loginForm.reset();

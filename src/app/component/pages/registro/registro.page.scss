@@ -1,0 +1,8 @@
+.content{
+    overflow-y: auto;
+    max-height: 100vh; /* Opcional: limita la altura máxima del contenedor para evitar que ocupe toda la pantalla */
+}
+.desvanecer {
+    opacity: 0;
+    transition: opacity 1s ease-out;
+  }

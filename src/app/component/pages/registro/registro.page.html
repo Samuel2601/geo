@@ -7,60 +7,179 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Registro de cuenta</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <form [formGroup]="registroForm" (ngSubmit)="postRegistrar()">
-    <ion-list>
-      <ion-item>
-        <ion-input (change)="buscarCed()" formControlName="cedula" label="Cédula"
-          placeholder="Ingrese la cédula"></ion-input>
-      </ion-item>
-      <div *ngIf="formControls['cedula']?.touched && formControls['cedula']?.invalid">
-        <div class="error ion-padding" *ngIf="formControls['cedula']?.errors?.['required']">
-          <ion-text color="danger">Cédula requerida.</ion-text>
+<ng-container *ngIf="!verificarTipoDispositivo()">
+  
+  <ion-content>
+    <ion-header collapse="condense">
+      <ion-toolbar>
+        <ion-title size="large">Registro de cuenta</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <form [formGroup]="registroForm" (ngSubmit)="postRegistrar()">
+      <ion-list>
+        <ion-item>
+          <ion-input (change)="buscarCed()" formControlName="cedula" label="Cédula"
+            placeholder="Ingrese la cédula"></ion-input>
+        </ion-item>
+        <div *ngIf="formControls['cedula']?.touched && formControls['cedula']?.invalid">
+          <div class="error ion-padding" *ngIf="formControls['cedula']?.errors?.['required']">
+            <ion-text color="danger">Cédula requerida.</ion-text>
+          </div>
+          <div class="ion-padding" *ngIf="formControls['cedula']?.errors?.['pattern']">
+            <ion-text color="danger">Ingrese una cédula válida.</ion-text>
+          </div>
         </div>
-        <div class="ion-padding" *ngIf="formControls['cedula']?.errors?.['pattern']">
-          <ion-text color="danger">Ingrese una cédula válida.</ion-text>
+        <ion-item>
+          <ion-input formControlName="nombre" label="Nombre" placeholder="Ingrese apellidos y nombres"
+            errorText="Nombre inválido (5-100 caracteres)"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input formControlName="correo" label="Correo" placeholder="Correo electrónico"
+            errorText="Correo inválido (máx. 50 caracteres)"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input formControlName="celular" label="Celular" placeholder="09XXXXXXXX"
+            errorText="Celular inválido"></ion-input>
+        </ion-item>
+        <ion-item>
+          <show-hide-password>
+            <ion-input formControlName="pass" label="Contraseña" type="password" placeholder="Contraseña"
+              errorText="Contraseña inválida (8-30 caracteres: al menos 1 mayúscula, 1 minúscula, 1 número, 1 símbolo)"></ion-input>
+          </show-hide-password>
+        </ion-item>
+      </ion-list>
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <p class="text-color-primary"><small>
+              <a
+                onclick="window.open('http://buzon.esmeraldas.gob.ec/alcaldia_ciudadana/terminos.jsp','_system','location=yes'); return false;">
+                Al registrarte aceptas nuestros términos y condiciones
+            </a></small></p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <ion-button [disabled]="!this.registroForm.valid" type="submit" shape="round" fill="outline"
+            expand="block">Registrarme<ion-icon slot="end" name="checkmark-circle"></ion-icon></ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-content>
+</ng-container>
+
+<ng-container *ngIf="verificarTipoDispositivo()">
+  <div class="content">
+    <section class="background-radial-gradient overflow-hidden" style="background-image: url('./assets/fondo.jpg');margin-top: -100px;">
+
+      <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
+        <div class="row gx-lg-5 align-items-center mb-5">
+          <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
+            <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(145, 73%, 17%,1)">
+              Formulario de Registro <br />
+              
+            </h1>
+            <img src="./assets/icono.png" style="background-size: 30% auto;" class="w-100 rounded-4 shadow-4"
+                alt="" />
+          </div>
+    
+          <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+            <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
+            <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
+    
+            <div class="card bg-glass" style="background-color: #000000e6;">
+              <div class="card-body px-4 py-5 px-md-5">
+                <form [formGroup]="registroForm" (ngSubmit)="postRegistrar()">
+                  <!-- Email input -->
+                  <div class="form-outline mb-4">
+                    <input  class="form-control" formControlName="nombre" label="Cédula"
+                    />
+                    <label class="form-label" for="form3Example3">Nombre</label>
+                    <div *ngIf="formControls['nombre']?.touched && !formControls['nombre'].pristine && formControls['nombre'].value !='' && formControls['nombre']?.invalid">
+                      <div class="error ion-padding" *ngIf="formControls['nombre']?.errors?.['required']">
+                        <ion-text color="danger">Cédula requerida.</ion-text>
+                      </div>
+                      <div class="ion-padding" *ngIf="formControls['nombre']?.errors?.['pattern']">
+                        <ion-text color="danger">Ingrese una cédula válida.</ion-text>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 2 column grid layout with text inputs for the first and last names -->
+                  <div class="row">
+                    <div class="col-md-6 mb-4">
+                      <div class="form-outline">
+                        <input type="text" (change)="buscarCed()" formControlName="cedula" id="form3Example1" class="form-control" />
+                        <label class="form-label" for="form3Example1">Cedula</label>
+                        
+                        <div *ngIf="formControls['cedula']?.touched && !formControls['cedula']?.pristine&& formControls['cedula'].value !='' && formControls['cedula']?.invalid">
+                          <div class="error ion-padding" *ngIf="formControls['cedula']?.errors?.['required']">
+                            <ion-text color="danger">Cedula requerida.</ion-text>
+                          </div>
+                          <div class="ion-padding" *ngIf="formControls['cedula']?.errors?.['pattern']">
+                            <ion-text color="danger">Ingrese ua cedula valida</ion-text>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                      <div class="form-outline">
+                        <input type="text"  formControlName="celular" id="form3Example2" class="form-control" errorText="Celular inválido" />
+                        <label class="form-label" for="form3Example2">Celular</label>
+                        <div *ngIf="formControls['celular']?.touched && !formControls['celular']?.pristine && formControls['celular'].value !='' && formControls['celular']?.invalid">
+                          <div class="error ion-padding" *ngIf="formControls['celular']?.errors?.['required']">
+                            <ion-text color="danger">Celular requerida.</ion-text>
+                          </div>
+                          <div class="ion-padding" *ngIf="formControls['celular']?.errors?.['pattern']">
+                            <ion-text color="danger">Celular inválido</ion-text>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+          
+                  <!-- Email input -->
+                  <div class="form-outline mb-4">
+                    <input type="email" id="form3Example3" formControlName="correo" class="form-control" />
+                    <label class="form-label" for="form3Example3">Email address</label>
+                    <div *ngIf="formControls['correo']?.touched && !formControls['correo']?.pristine && formControls['correo'].value !='' && formControls['correo']?.invalid">
+                      <div class="error ion-padding" *ngIf="formControls['correo']?.errors?.['required']">
+                        <ion-text color="danger">Correo requerida.</ion-text>
+                      </div>
+                      <div class="ion-padding" *ngIf="formControls['correo']?.errors?.['pattern']">
+                        <ion-text color="danger">Correo inválido</ion-text>
+                      </div>
+                    </div>
+                  </div>
+          
+                  <!-- Password input -->
+                  <div class="form-outline mb-4">
+                    <input type="password" id="form3Example4" formControlName="pass" class="form-control" />
+                    <label class="form-label" for="form3Example4">Password</label>
+                    <div *ngIf="formControls['pass']?.touched && !formControls['pass']?.pristine && formControls['pass'].value !='' && formControls['pass']?.invalid">
+                      <div class="error ion-padding" *ngIf="formControls['pass']?.errors?.['required']">
+                        <ion-text color="danger">Contraseña requerida.</ion-text>
+                      </div>
+                      <div class="ion-padding" *ngIf="formControls['pass']?.errors?.['pattern']">
+                        <ion-text color="danger">Contraseña inválido</ion-text>
+                      </div>
+                    </div>
+                  </div>
+          
+                  
+          
+                  <!-- Submit button -->
+                  <button type="submit" class="btn btn-primary btn-block mb-4">
+                    Registrate
+                  </button>
+          
+                  
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <ion-item>
-        <ion-input formControlName="nombre" label="Nombre" placeholder="Ingrese apellidos y nombres"
-          errorText="Nombre inválido (5-100 caracteres)"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input formControlName="correo" label="Correo" placeholder="Correo electrónico"
-          errorText="Correo inválido (máx. 50 caracteres)"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input formControlName="celular" label="Celular" placeholder="09XXXXXXXX"
-          errorText="Celular inválido"></ion-input>
-      </ion-item>
-      <ion-item>
-        <show-hide-password>
-          <ion-input formControlName="pass" label="Contraseña" type="password" placeholder="Contraseña"
-            errorText="Contraseña inválida (8-30 caracteres: al menos 1 mayúscula, 1 minúscula, 1 número, 1 símbolo)"></ion-input>
-        </show-hide-password>
-      </ion-item>
-    </ion-list>
-    <ion-row>
-      <ion-col class="ion-text-center">
-        <p class="text-color-primary"><small>
-            <a
-              onclick="window.open('http://buzon.esmeraldas.gob.ec/alcaldia_ciudadana/terminos.jsp','_system','location=yes'); return false;">
-              Al registrarte aceptas nuestros términos y condiciones
-          </a></small></p>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col class="ion-text-center">
-        <ion-button [disabled]="!this.registroForm.valid" type="submit" shape="round" fill="outline"
-          expand="block">Registrarme<ion-icon slot="end" name="checkmark-circle-outline"></ion-icon></ion-button>
-      </ion-col>
-    </ion-row>
-  </form>
+    </section>
 
-</ion-content>
+  </div>  
+</ng-container>
+

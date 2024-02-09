@@ -16,7 +16,8 @@ export class ModalService {
       component: InicioPage,
       componentProps: {
         mostrarEnModal: true
-      }
+      },
+      cssClass: 'modal-fullscreen'
     });
     return await modal.present();
   }
@@ -31,7 +32,8 @@ export class ModalService {
       component: RegistroPage,
       componentProps: {
         mostrarEnModal: true
-      }
+      },
+      cssClass: 'modal-fullscreen'
     });
     return await modal.present();
   }

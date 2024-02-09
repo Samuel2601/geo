@@ -74,6 +74,7 @@ export class SecurityService {
     const encryptedData = window.btoa(rsa.encrypt(text, SecurityService.RSA_ENCRYPTION_SCHEME));
     return { data: urlSafe ? encodeURIComponent(encryptedData) : encryptedData };
   }
+  
 
   public static decryptRsa(text: string, private_key: string, isObject: boolean = true): any {
     const rsa = Forge.pki.decryptRsaPrivateKey(private_key);

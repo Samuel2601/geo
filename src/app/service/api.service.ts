@@ -7,12 +7,14 @@ import { Router } from '@angular/router';
 import { SecurityService } from './security.service';
 import { MessagesService } from './messages.service';
 
+import { GLOBAL } from './GLOBAL';
+
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
   //private static readonly BASE_URL = 'http://192.168.120.16:3060/mobileapp-api/v1';
-  private static readonly BASE_URL = 'http://localhost:3060/mobileapp-api/v1';
+  private static readonly BASE_URL='http://localhost:4201/api';//'http://localhost:3060/mobileapp-api/v1';
   readonly helper = new JwtHelperService();
   public user: Observable<any>|any;
   private userData = new BehaviorSubject(null);
@@ -24,7 +26,7 @@ export class ApiService {
   public reloadSolicitudes: boolean = false;
   public solicitudesInitialized: boolean = false;
   public backgroundActionRunning: boolean = false;
-
+  
   constructor(private http: HttpClient,
     private storageService: StorageService,
     private router: Router,
@@ -39,7 +41,7 @@ export class ApiService {
         return '\\u' + ('0000' + c.charCodeAt(0).toString(16)).slice(-4);
       }
     );
-  }
+  }  
 
   private setAuthHeader(token: string) {
     this.httpOptions = {
@@ -105,18 +107,24 @@ export class ApiService {
   }
 
   private getEncryptedData(data: any, includeAES: boolean = true, urlSafe: boolean = false) {
-    return SecurityService.encryptRsa(ApiService.stringifyWithAccent({ aes: includeAES ? SecurityService.getAES() : null, data }), urlSafe);
+    const textToEncrypt = ApiService.stringifyWithAccent({ aes: includeAES ? SecurityService.getAES() : null, data });
+    const encryptedData = SecurityService.encryptRsa(textToEncrypt, urlSafe);
+    return encryptedData;
   }
+  
 
   private getAESForQuery() {
     return SecurityService.encryptRsa(ApiService.stringifyWithAccent(SecurityService.getAES()), true).data;
   }
 
   SecureGetCedula(data: any): Observable<any> {
-    return this.http
-      .get<any>(`${ApiService.BASE_URL}/auth/cedula?data=${this.getEncryptedData(data, true, true).data}`, this.httpOptions)
-      .pipe(catchError(this.errorHandl));
+    const encryptedData = this.getEncryptedData(data, true, true).data;
+    const url = `${ApiService.BASE_URL}/auth/cedula?data=${encryptedData}`;
+    return this.http.get<any>(url, this.httpOptions).pipe(
+      catchError(this.errorHandl)
+    );
   }
+  
 
   SecurePostRegistrar(data: any): Observable<any> {
     return this.http
@@ -152,6 +160,11 @@ export class ApiService {
   GetCategorias(): Observable<any> {
     return this.http
       .get<any>(`${ApiService.BASE_URL}/categorias?aes=${this.getAESForQuery()}`, this.httpOptions)
+      .pipe(catchError(this.errorHandl));
+  }
+  GetUsers(): Observable<any> {
+    return this.http
+      .get<any>(`${ApiService.BASE_URL}/admin/listar_admin?aes=${this.getAESForQuery()}`, this.httpOptions)
       .pipe(catchError(this.errorHandl));
   }
 

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Platform } from '@ionic/angular';
 import { ApiService } from 'src/app/service/api.service';
 import { MessagesService } from 'src/app/service/messages.service';
 import { SecurityService } from 'src/app/service/security.service';
@@ -19,7 +20,8 @@ export class RegistroPage implements OnInit {
     public formBuilder: FormBuilder,
     private apiService: ApiService,
     private messagesService: MessagesService,
-    private storageService: StorageService) { }
+    private storageService: StorageService,
+    private platform: Platform) { }
 
   async ngOnInit() {
     this.registroForm = this.formBuilder.group({
@@ -45,13 +47,14 @@ export class RegistroPage implements OnInit {
 
   async ionViewWillEnter() {
     if (await this.storageService.get(StorageService.TOKEN)) {
-      this.router.navigate(["/tabs"]);
+      this.router.navigate(["/home"]);
     }
   }
 
   get formControls() {
     return this.registroForm.controls;
   }
+  
 
   async buscarCed() {
     if (!this.formControls['cedula']?.invalid) {
@@ -63,11 +66,13 @@ export class RegistroPage implements OnInit {
           const { message, data } = res;
           const response = SecurityService.decryptAes(data);
           await this.messagesService.dismissLoading();
+          console.log(response);
           this.messagesService.presentToast(message);
           this.registroForm.get('nombre')?.disable();
           this.registroForm.get("nombre")?.setValue(response.nombres);
         },
         error: async (error) => {
+          console.log(error);
           await this.messagesService.dismissLoading();
           this.messagesService.presentAlert(error.message);
           if (error.status !== 0 && error.status !== 400 && error.status !== 401 && error.status !== 403 && error.status !== 503) {
@@ -107,5 +112,11 @@ export class RegistroPage implements OnInit {
       this.messagesService.presentAlert("Complete el formulario");
     }
   }
-
+  verificarTipoDispositivo():boolean {
+    if (this.platform.is('desktop')) {
+      return true;
+    } else {
+      return false;
+    }
+  }  
 }

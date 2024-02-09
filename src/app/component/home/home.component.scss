@@ -2,3 +2,14 @@
     overflow-y: auto;
     max-height: 100vh; /* Opcional: limita la altura máxima del contenedor para evitar que ocupe toda la pantalla */
 }
+@media only screen and (min-width: 768px) and (min-height: 600px) {
+    :host {
+      --width: 800px; /* Cambia el ancho del modal */
+      --height: 600px; /* Cambia el alto del modal */
+      --ion-safe-area-top: 20px; /* Ajusta el área segura superior si es necesario */
+      --ion-safe-area-bottom: 20px; /* Ajusta el área segura inferior si es necesario */
+      --ion-safe-area-right: 20px; /* Ajusta el área segura derecha si es necesario */
+      --ion-safe-area-left: 20px; /* Ajusta el área segura izquierda si es necesario */
+    }
+  }
+  
